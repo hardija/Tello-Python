@@ -1,5 +1,5 @@
-from tello import Tello
 import sys
+from tello import Tello
 from datetime import datetime
 import time
 
@@ -17,7 +17,7 @@ for command in commands:
 
         if command.find('delay') != -1:
             sec = float(command.partition('delay')[2])
-            print 'delay %s' % sec
+            print('delay %s' % sec)
             time.sleep(sec)
             pass
         else:
