@@ -1,8 +1,5 @@
 import socket
-from time import sleep
 import curses
-
-INTERVAL = 0.2
 
 
 
@@ -33,11 +30,17 @@ if __name__ == "__main__":
             response, ip = socket.recvfrom(1024)
             if response == 'ok':
                 continue
-            out = response.replace(';', ';\n')
+            out = response.decode('utf-8').replace(';', ';\n')
             out = 'Tello State:\n' + out
             report(out)
-            sleep(INTERVAL)
     except KeyboardInterrupt:
+        curses.echo()
+        curses.nocbreak()
+        curses.endwin()
+    except Exception as err:
+        # wait for key so we can see error messages
+        report('error: {0}'.format(err))
+        stdscr.getkey()
         curses.echo()
         curses.nocbreak()
         curses.endwin()
